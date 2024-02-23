@@ -5,8 +5,12 @@ using UnityEditor.SceneManagement;
 
 public class PlayerX : MonoBehaviour
 {
-    public GameObject NorthExit, SouthExit, EastExit, WestExit;
-    private float speed = 3.0f;
+    public GameObject NorthExit;
+    public GameObject SouthExit;
+    public GameObject EastExit;
+    public GameObject WestExit;
+    public GameObject middleOfTheRoom;
+    private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
 
@@ -29,48 +33,76 @@ public class PlayerX : MonoBehaviour
 
     void Start()
     {
-        //not our first scene
+        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         this.turnOffExits();
-        if(!MySingleton.currentDirection.Equals("?"))
+        this.middleOfTheRoom.SetActive(false);
+
+
+        if (!MySingleton.currentDirection.Equals("?"))
         {
-            if(MySingleton.currentDirection.Equals("North"))
+            this.amMoving = true;
+
+            this.middleOfTheRoom.SetActive(true);
+            this.amAtMiddleOfRoom = false;
+
+            if (MySingleton.currentDirection.Equals("North"))
             {
                 this.gameObject.transform.position = this.SouthExit.transform.position;
+                this.gameObject.transform.LookAt(this.NorthExit.transform.position);
             }
             else if (MySingleton.currentDirection.Equals("South"))
-                {
-                    this.gameObject.transform.position = this.NorthExit.transform.position;
-                }
+            {
+                this.gameObject.transform.position = this.NorthExit.transform.position;
+                this.gameObject.transform.LookAt(this.SouthExit.transform.position);
+
+            }
             else if (MySingleton.currentDirection.Equals("West"))
             {
                 this.gameObject.transform.position = this.EastExit.transform.position;
+                this.gameObject.transform.LookAt(this.WestExit.transform.position);
+
             }
             else if (MySingleton.currentDirection.Equals("East"))
             {
                 this.gameObject.transform.position = this.WestExit.transform.position;
-            }
+                this.gameObject.transform.LookAt(this.EastExit.transform.position);
 
+            }
         }
+        else
+        {
+            this.amMoving = false;
+            this.amAtMiddleOfRoom = true;
+            this.middleOfTheRoom.SetActive(false);
+            this.gameObject.transform.position = this.middleOfTheRoom.transform.position;
+        }
+     
+        
     }
 
-    /* private void OnCollisionEnter(Collision collision) 
-    {
-        print("onCollision");
-    }*/
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Door"))
+        print(other.tag);
+
+        if (other.CompareTag("Door"))
         {
+            print("Loading Scene");
             EditorSceneManager.LoadScene("DungeonS1");
         }
         else if (other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
+            this.middleOfTheRoom.SetActive(false);
+            this.turnOnExits();
+
+            print("middle");
             this.amAtMiddleOfRoom = true;
-            speed = 0;
+            this.amMoving = false;
+            MySingleton.currentDirection = "middle";
+
         }
-        
+
 
     }
     private void Update()
@@ -81,7 +113,7 @@ public class PlayerX : MonoBehaviour
             this.turnOnExits();
             MySingleton.currentDirection = "North";
             this.gameObject.transform.LookAt(this.NorthExit.transform.position);
-            speed = 3.0f;
+            
 
         }
 
@@ -92,7 +124,7 @@ public class PlayerX : MonoBehaviour
             MySingleton.currentDirection = "South";
             //this.gameObject.transform.rotation = Vector3.RotateTowards(this.gameObject.transform.position, this.SouthExit.transform.position, 1.5f, this.speed * Time.deltaTime);
             this.gameObject.transform.LookAt(this.SouthExit.transform.position);
-            speed = 3.0f;
+            
 
         }
 
@@ -102,7 +134,7 @@ public class PlayerX : MonoBehaviour
             this.turnOnExits();
             MySingleton.currentDirection = "East";
             this.gameObject.transform.LookAt(this.EastExit.transform.position);
-            speed = 3.0f;
+           
 
 
         }
@@ -113,7 +145,7 @@ public class PlayerX : MonoBehaviour
             this.turnOnExits();
             MySingleton.currentDirection = "West";
             this.gameObject.transform.LookAt(this.WestExit.transform.position);
-            speed = 3.0f;
+            
 
 
         }
