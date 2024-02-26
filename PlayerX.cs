@@ -79,8 +79,23 @@ public class PlayerX : MonoBehaviour
      
         
     }
+    /*
+    public void getOpposite(MySingleton.Direction)
+    {
+        if (MySingleton.currentDirection = "North")
+            return MySingleton.oppositte = "South";
+        else if (MySingleton.currentDirection = "South")
+            return MySingleton.oppositte = "North";
+        else if (MySingleton.currentDirection = "East")
+            return MySingleton.oppositte = "West";
+        else if (MySingleton.currentDirection = "West")
+            return MySingleton.oppositte = "East";
+        else if (MySingleton.oppositte = "?")
+            return MySingleton.oppositte = "?";
 
-
+        return null;
+    }
+    */
 
     private void OnTriggerEnter(Collider other)
     {
@@ -89,7 +104,17 @@ public class PlayerX : MonoBehaviour
         if (other.CompareTag("Door"))
         {
             print("Loading Scene");
-            EditorSceneManager.LoadScene("DungeonS1");
+            /* if(MySingleton.oppositte = MySingleto
+                {
+
+                }
+                else
+                {
+                    EditorSceneManager.LoadScene(MySingleton.theRoom[1]);
+                    //EditorSceneManager.LoadScene("DungeonS1");
+                }*/
+            EditorSceneManager.LoadScene("DungeonS1");        
+
         }
         else if (other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
@@ -107,7 +132,7 @@ public class PlayerX : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("North"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -117,7 +142,7 @@ public class PlayerX : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("South"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -128,7 +153,7 @@ public class PlayerX : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("East"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -139,7 +164,7 @@ public class PlayerX : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("West"))
         {
             this.amMoving = true;
             this.turnOnExits();
