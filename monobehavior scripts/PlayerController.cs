@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
+using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public GameObject eastExit;
     public GameObject westExit;
     public GameObject middleOfTheRoom;
+    public GameObject northpellet, southpellet, eastpellet, westpellet;
+    public TextMeshProUGUI Score;
     private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
@@ -85,9 +89,16 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Door"))
         {
-            print("Loading Scene");
-            EditorSceneManager.LoadScene("DungeonS1");        
 
+            print("Loading Scene");
+            MySingleton.thePlayer.getCurrentRoom().removePlayer(MySingleton.currentDirection);
+            EditorSceneManager.LoadScene("DungeonS1");
+
+        }
+        else if(other.CompareTag("power-pellet"))
+        {
+            other.gameObject.SetActive(false);
+            MySingleton.thePlayer.setScore(Player.score++);
         }
         else if (other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
@@ -112,23 +123,6 @@ public class PlayerController : MonoBehaviour
             MySingleton.currentDirection = "north";
             this.gameObject.transform.LookAt(this.northExit.transform.position);
 
-            if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r1)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r2;
-            }
-            else if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r2)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r3;
-            }
-            else if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r3)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r6;
-            }
-           
-
-
-
-
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("south"))
@@ -139,21 +133,6 @@ public class PlayerController : MonoBehaviour
             //this.gameObject.transform.rotation = Vector3.RotateTowards(this.gameObject.transform.position, this.SouthExit.transform.position, 1.5f, this.speed * Time.deltaTime);
             this.gameObject.transform.LookAt(this.southExit.transform.position);
 
-            if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r6)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r3;
-            }
-            else if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r3)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r2;
-
-            }
-            else if(MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r2);
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r1;
-
-            }
-
         }
 
         if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("east"))
@@ -163,18 +142,6 @@ public class PlayerController : MonoBehaviour
             MySingleton.currentDirection = "east";
             this.gameObject.transform.LookAt(this.eastExit.transform.position);
 
-            if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r4)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r3;
-
-            }
-            else if(MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r3)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r5;
-
-            }
-
-
         }
 
         if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("west"))
@@ -183,18 +150,6 @@ public class PlayerController : MonoBehaviour
             this.turnOnExits();
             MySingleton.currentDirection = "west";
             this.gameObject.transform.LookAt(this.westExit.transform.position);
-
-            if (MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r5) 
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r3;
-
-            }            
-            else if(MySingleton.thePlayer.getCurrentRoom(getCurrentRoom()) = MySingleton.r3)
-            {
-                setCurrentRoom(getCurrentRoom()) = MySingleton.r4;
-
-            }
-
 
         }
         //Make the player move in the current direction

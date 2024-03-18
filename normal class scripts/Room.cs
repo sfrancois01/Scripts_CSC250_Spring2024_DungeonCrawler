@@ -67,20 +67,4 @@ public class Room
             this.howManyExits++;
         }
     }
-
-    public void addPellets(Room destinationRoom, string pellet, string direction)
-    {
-        if(direction = true)
-        {
-            for (int i = 0; i < this.howManyExits; i++)
-            {
-                if (this.theExits[i].getDirection().Equals(direction))
-                {
-                    return true;
-                }
-            }
-            return false;
-        } 
-            
-    }
 }
