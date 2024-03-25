@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
-using UnityEngine.InputSystem;
-using TMPro;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,8 +11,6 @@ public class PlayerController : MonoBehaviour
     public GameObject eastExit;
     public GameObject westExit;
     public GameObject middleOfTheRoom;
-    public GameObject northpellet, southpellet, eastpellet, westpellet;
-    public TextMeshProUGUI Score;
     private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
@@ -45,7 +42,6 @@ public class PlayerController : MonoBehaviour
         if (!MySingleton.currentDirection.Equals("?"))
         {
             this.amMoving = true;
-
             this.middleOfTheRoom.SetActive(true);
             this.amAtMiddleOfRoom = false;
 
@@ -97,11 +93,15 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.CompareTag("power-pellet"))
         {
-            other.gameObject.SetActive(false);
-            MySingleton.thePlayer.setScore(Player.score++);
+            other.gameObject.SetActive(false); 
+
+            Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
+            EditorSceneManager.LoadScene("FightScene");
+            
         }
         else if (other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
+
             this.middleOfTheRoom.SetActive(false);
             this.turnOnExits();
 

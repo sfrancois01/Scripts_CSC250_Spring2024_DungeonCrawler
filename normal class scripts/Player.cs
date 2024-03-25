@@ -6,7 +6,6 @@ public class Player
 {
     private string name;
     private Room currentRoom;
-    public string score = 0;
 
     public Player(string name)
     {
@@ -21,11 +20,6 @@ public class Player
 
     public void setCurrentRoom(Room r)
     {
-        this.currentRoom = r; 
-    }
-
-    public void setScore(string score) 
-    {
-        this.score = "Score: " + score.ToString();
+        this.currentRoom = r;
     }
 }

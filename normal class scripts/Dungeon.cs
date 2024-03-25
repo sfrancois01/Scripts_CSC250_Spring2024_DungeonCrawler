@@ -12,7 +12,6 @@ public class Dungeon : MonoBehaviour
     public Dungeon(string name)
     {
         this.name = name;       
-
     }
 
     public void setStartRoom(Room r)
