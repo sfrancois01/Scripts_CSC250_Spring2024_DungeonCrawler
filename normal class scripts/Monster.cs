@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Monster
+public class Monster : Inhabitant
 {
-    protected string name;
-    protected int health;
-
-    public Monster(int health)
+    public Monster(string name) :base(name)
     {
-       
-        this.health = 5;
-        this.name = "monster";
-
+        Monster rake = new Monster(name);
     }
+
 }

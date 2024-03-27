@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false); 
 
             Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
+            theCurrentRoom.removePellet(other.GetComponent<pelletController>().direction);
             EditorSceneManager.LoadScene("FightScene");
             
         }
