@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
+using TMPro;
 
 
 public class PlayerController : MonoBehaviour
 {
+    public TextMeshPro pellet_TMP;
     public GameObject northExit;
     public GameObject southExit;
     public GameObject eastExit;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        this.pellet_TMP.text = " " + MySingleton.currentPellets;
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         this.turnOffExits();
         this.middleOfTheRoom.SetActive(false);
@@ -117,6 +120,12 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            EditorSceneManager.LoadScene("ShopKeeper");
+
+        }
+      
         if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("north"))
         {
             this.amMoving = true;

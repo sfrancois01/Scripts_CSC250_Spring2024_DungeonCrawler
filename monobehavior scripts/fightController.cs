@@ -7,6 +7,7 @@ using UnityEditor.SceneManagement;
 
 public class fightController : MonoBehaviour
 {
+    private bool isFightOver = false;
     public GameObject hero_GO, monster_GO;
     public TextMeshPro hero_hp_TMP, monster_hp_TMP;
     private GameObject currentAttacker;
@@ -74,6 +75,8 @@ public class fightController : MonoBehaviour
                     this.currentAttacker = this.monster_GO;
                     this.theCurrentAnimator = this.currentAttacker.GetComponent<Animator>();
                     this.theCurrentAnimator.SetBool("death", true);
+                    MySingleton.currentPellets++;
+                    this.isFightOver = true;
                     EditorSceneManager.LoadScene("DungeonS1");
 
                 }
@@ -94,10 +97,11 @@ public class fightController : MonoBehaviour
                     this.fightCommentaryTMP.text = "Monster Wins!!!";
                     this.shouldAttack = false;
                     this.currentAttacker = this.hero_GO;
+                    this.isFightOver = true;
                     this.theCurrentAnimator = this.currentAttacker.GetComponent<Animator>();
                     this.theCurrentAnimator.SetBool("death", true);
                   
-                    EditorSceneManager.LoadScene("DungeonS1");
+         
 
                 }
                 else
@@ -111,7 +115,11 @@ public class fightController : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
-
+        if (isFightOver && Input.GetKeyUp(KeyCode.Space))
+            {
+                MySingleton.thePlayer.resetStats();
+                EditorSceneManager.LoadScene("DungeonS1");
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.SceneManagement;
+
 
 public class heroFightController : MonoBehaviour
 {
@@ -18,6 +20,11 @@ public class heroFightController : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Space))
         {
             this.an.SetTrigger("attack");
-        }    
+        }
+        if (Input.GetKeyUp(KeyCode.Delete))
+        {
+            EditorSceneManager.LoadScene("DungeonS1");
+
+        }
     }
 }
