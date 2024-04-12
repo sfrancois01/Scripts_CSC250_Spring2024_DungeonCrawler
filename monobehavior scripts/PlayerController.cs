@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
+    private Scene m_Scene;
 
     private void turnOffExits()
     {
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Scene m_Scene = SceeneManager.GetActiveScene();
         this.pellet_TMP.text = " " + MySingleton.currentPellets;
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         this.turnOffExits();
@@ -120,7 +123,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetKeyUp(KeyCode.Escape) && m_scene!= "FightScene")
         {
             EditorSceneManager.LoadScene("ShopKeeper");
 
