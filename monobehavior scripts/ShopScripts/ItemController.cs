@@ -10,11 +10,6 @@ public class ItemController : MonoBehaviour
         
     }
 
-    private void OnMouseUp()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

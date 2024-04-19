@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Scene m_Scene = SceeneManager.GetActiveScene();
+        Scene m_Scene = SceneManager.GetActiveScene();
         this.pellet_TMP.text = " " + MySingleton.currentPellets;
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         this.turnOffExits();
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && m_scene!= "FightScene")
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             EditorSceneManager.LoadScene("ShopKeeper");
 
