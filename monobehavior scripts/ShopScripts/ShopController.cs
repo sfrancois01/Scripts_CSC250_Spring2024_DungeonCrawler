@@ -7,7 +7,8 @@ using System;
 
 public class ShopController : MonoBehaviour
 {
-    public TextMeshPro playerTMP, item1TMP, item2TMP, item3TMP, item4TMP;
+    public TextMeshPro playerTMP, itemTMP;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +28,7 @@ public class ShopController : MonoBehaviour
         {
             print($"Name: {item.name}, Stat Impacted: {item.stat_impacted}, Modifier: {item.modifier}");
         }
-
-        this.item1TMP.text = root.item[0];
-        this.item2TMP.text = root.item[1]; 
-        this.item3TMP.text = root.item[2]; 
-        this.item4TMP.text = root.item[3]; 
-
+    }
         private void updatePlayerTMP()
         {
             this.playerTMP.text = "Pellets: " + MySingleton.currentPellets + "(HP: " + MySingleton.thePlayer.getHP() + ")"; ;
@@ -122,61 +118,6 @@ public class ShopController : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Alpha1))
-            {
-                if (MySingleton.currentPellets >= root.item[0];)
-                {
-                    MySingleton.currentPellets -= root.item[0].modifier;
-                    MySingleton.thePlayer.addHP(5);
-                    this.updatePlayerTMP();
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.Alpha2))
-            {
-                if (MySingleton.currentPellets >= root.item[1];)
-                {
-                    MySingleton.currentPellets -= root.item[1].modifier;
-                    MySingleton.thePlayer.addHP(5);
-                    this.updatePlayerTMP();
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.Alpha3))
-            {
-                if (MySingleton.currentPellets >= root.item[2];)
-                {
-                    MySingleton.currentPellets -= root.item[2].modifier;
-                    MySingleton.thePlayer.addHP(5);
-                    this.updatePlayerTMP();
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.Alpha4))
-            {
-                if (MySingleton.currentPellets >= root.item[3];)
-                {
-                    MySingleton.currentPellets -= root.item[3].modifier);
-                    MySingleton.thePlayer.addHP(5);
-                    this.updatePlayerTMP();
-                }
-            }
-        }
 
-
-        if(Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            this.item1TMP.text = root.item[0];
-            this.item2TMP.text = root.item[1];
-            this.item3TMP.text = root.item[2];
-            this.item4TMP.text = root.item[3];
-        }
-   
-
-        if(Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            this.item1TMP.text = root.item[4];
-            this.item2TMP.text = root.item[5];
-            this.item3TMP.text = root.item[6];
-            this.item4TMP.text = root.item[7];
-        }
-       
-    } 
+        } 
 }
